@@ -1,88 +1,58 @@
 "use strict";
 
-/* =========================================================
-   TRADERS DE ELITE — SUPORTE IA
-   VERCEL + GOOGLE GEMINI
-   ========================================================= */
-
 const SYSTEM_PROMPT = `
-És o assistente virtual da TRADERS DE ELITE, uma comunidade
-social, educativa e sem fins lucrativos.
+Você é o assistente oficial de suporte da TRADERS DE ELITE.
 
-Responde em português claro, natural e objetivo.
+A TRADERS DE ELITE é uma comunidade de educação financeira e desenvolvimento juvenil.
 
-Podes ajudar com:
+Sua função é:
+- ajudar visitantes e estudantes;
+- explicar como funciona a plataforma;
+- orientar sobre cadastro e acesso;
+- explicar cursos e aulas;
+- ajudar com problemas comuns do portal;
+- responder de forma clara, curta e profissional.
 
-- informações sobre a comunidade;
-- formações;
-- inscrição;
-- Portal do Estudante;
-- funcionamento do site;
-- utilização das páginas;
-- dúvidas gerais sobre a TRADERS DE ELITE.
+Não invente informações.
+Se não souber algo específico sobre a plataforma, diga claramente que o utilizador deve contactar o suporte humano.
 
-REGRAS:
-
-1. Não inventes preços, horários, contactos, cursos ou regras.
-2. Se não souberes uma informação, diz claramente que não tens
-   essa informação e recomenda contactar a equipa.
-3. Não dês recomendações financeiras personalizadas.
-4. Não forneças sinais de compra ou venda.
-5. Não prometas lucros.
-6. Não apresentes especulação financeira como facto.
-7. Mantém as respostas claras e relativamente curtas.
+Responda sempre em português.
 `;
-
-
-/* =========================================================
-   CONHECIMENTO DA TRADERS DE ELITE
-   ========================================================= */
 
 const KNOWLEDGE = `
-TRADERS DE ELITE:
+INFORMAÇÕES DA PLATAFORMA:
 
-- Comunidade de carácter social, educativo e sem fins lucrativos.
-- Atua em educação financeira.
-- Literacia económica.
-- Mercados financeiros.
-- Empreendedorismo.
-- Desenvolvimento pessoal.
-- Valores: disciplina, estratégia e consistência.
+Nome:
+TRADERS DE ELITE
 
-PÁGINAS DO SITE:
+Descrição:
+Comunidade de Educação Financeira e Desenvolvimento Juvenil.
 
-- Sobre
-- Formação
-- Sala Virtual
-- Market Desk
-- Comunidade
-- Parceiros
-- Transparência
-- Suporte IA
+A plataforma possui:
+- cursos;
+- módulos;
+- aulas;
+- área do estudante;
+- Market Desk;
+- comunidade;
+- eventos;
+- informações institucionais;
+- sistema de certificados.
 
-Também existe um Portal do Estudante.
+Portal do estudante:
+https://www.tradersdeelite.school/portal/login.html
 
-O suporte de IA fornece informações gerais sobre a comunidade
-e utilização do site.
+Site:
+https://www.tradersdeelite.school
 
-CONTACTO:
-
-Telefone:
-938979330
-
-O assistente não deve inventar outros contactos.
+O assistente não deve solicitar senhas, códigos de recuperação ou chaves de API.
 `;
-
-
-/* =========================================================
-   FUNÇÃO PRINCIPAL
-   ========================================================= */
 
 export default async function handler(req, res) {
 
-    /* =====================================================
-       CORS
-       ===================================================== */
+    // ==============================
+    // CORS
+    // ==============================
 
     res.setHeader(
         "Access-Control-Allow-Origin",
@@ -99,105 +69,20 @@ export default async function handler(req, res) {
         "Content-Type, Accept"
     );
 
-
-    /* =====================================================
-       PREFLIGHT
-       ===================================================== */
+    // ==============================
+    // PREFLIGHT
+    // ==============================
 
     if (req.method === "OPTIONS") {
-
         return res.status(204).end();
-
     }
 
-
-    /* =====================================================
-       ACEITAR GET E POST
-       ===================================================== */
-
-    if (
-        req.method !== "GET" &&
-        req.method !== "POST"
-    ) {
-
-        return res.status(405).json({
-
-            message:
-                "Método não permitido."
-
-        });
-
-    }
-
-
-    /* =====================================================
-       OBTER MENSAGEM
-       ===================================================== */
-
-    let message = "";
-
-
-    /* -----------------------------------------------------
-       POST
-       ----------------------------------------------------- */
-
-    if (req.method === "POST") {
-
-        message = String(
-            req.body?.message || ""
-        ).trim();
-
-    }
-
-
-    /* -----------------------------------------------------
-       GET
-       ----------------------------------------------------- */
-
-    if (req.method === "GET") {
-
-        message = String(
-            req.query?.message || ""
-        ).trim();
-
-    }
-
-
-    /* =====================================================
-       VALIDAR
-       ===================================================== */
-
-    if (!message) {
-
-        return res.status(400).json({
-
-            message:
-                "Escreva uma mensagem."
-
-        });
-
-    }
-
-
-    if (message.length > 1200) {
-
-        return res.status(400).json({
-
-            message:
-                "A mensagem é demasiado longa."
-
-        });
-
-    }
-
-
-    /* =====================================================
-       API KEY
-       ===================================================== */
+    // ==============================
+    // API KEY
+    // ==============================
 
     const apiKey =
         process.env.GEMINI_API_KEY;
-
 
     if (!apiKey) {
 
@@ -206,224 +91,248 @@ export default async function handler(req, res) {
         );
 
         return res.status(500).json({
-
             message:
                 "A IA ainda não está configurada no servidor."
-
         });
-
     }
 
+    // ==============================
+    // RECEBER MENSAGEM
+    // ==============================
 
-    /* =====================================================
-       MODELO
-       ===================================================== */
+    let message = "";
+
+    if (req.method === "POST") {
+
+        message =
+            req.body?.message || "";
+
+    } else if (req.method === "GET") {
+
+        message =
+            req.query?.message || "";
+
+    } else {
+
+        return res.status(405).json({
+            message:
+                "Método não permitido."
+        });
+    }
+
+    message =
+        String(message)
+            .trim();
+
+    if (!message) {
+
+        return res.status(400).json({
+            message:
+                "Escreva uma mensagem."
+        });
+    }
+
+    if (message.length > 1200) {
+
+        return res.status(400).json({
+            message:
+                "A mensagem é demasiado longa."
+        });
+    }
+
+    // ==============================
+    // MODELO
+    // ==============================
 
     const model =
         process.env.GEMINI_MODEL ||
-        "gemini-2.5-flash";
-
-
-    /* =====================================================
-       URL GEMINI
-       ===================================================== */
+        "gemini-3.8-flash";
 
     const url =
         `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
+    console.log(
+        "🤖 Consultando Gemini:",
+        model
+    );
 
-    /* =====================================================
-       GEMINI
-       ===================================================== */
+    // ==============================
+    // REQUEST GEMINI
+    // ==============================
 
     try {
 
+        const controller =
+            new AbortController();
+
+        const timeout =
+            setTimeout(
+                () => controller.abort(),
+                25000
+            );
+
         const response =
-            await fetch(url, {
+            await fetch(
+                url,
+                {
+                    method: "POST",
 
-                method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json",
 
-                headers: {
-
-                    "Content-Type":
-                        "application/json",
-
-                    "x-goog-api-key":
-                        apiKey
-
-                },
-
-                body: JSON.stringify({
-
-                    systemInstruction: {
-
-                        parts: [
-
-                            {
-                                text:
-                                    SYSTEM_PROMPT
-                            }
-
-                        ]
-
+                        "x-goog-api-key":
+                            apiKey
                     },
 
-                    contents: [
+                    body:
+                        JSON.stringify({
 
-                        {
+                            systemInstruction: {
+                                parts: [
+                                    {
+                                        text:
+                                            SYSTEM_PROMPT
+                                    }
+                                ]
+                            },
 
-                            role: "user",
-
-                            parts: [
-
+                            contents: [
                                 {
+                                    role: "user",
 
-                                    text:
-                                        `${KNOWLEDGE}
+                                    parts: [
+                                        {
+                                            text:
+                                                `${KNOWLEDGE}
 
 Pergunta do utilizador:
 
 ${message}`
-
+                                        }
+                                    ]
                                 }
+                            ],
 
-                            ]
+                            generationConfig: {
+                                maxOutputTokens: 500
+                            }
 
-                        }
+                        }),
 
-                    ],
+                    signal:
+                        controller.signal
+                }
+            );
 
-                    generationConfig: {
-
-                        temperature: 0.3,
-
-                        maxOutputTokens: 500
-
-                    }
-
-                })
-
-            });
-
-
-        /* =================================================
-           LER RESPOSTA
-           ================================================= */
+        clearTimeout(timeout);
 
         const raw =
             await response.text();
 
+        console.log(
+            "Gemini HTTP:",
+            response.status
+        );
 
-        let data = null;
+        console.log(
+            "Gemini resposta:",
+            raw.slice(0, 1000)
+        );
 
+        let data;
 
-        if (raw.trim()) {
+        try {
 
-            try {
+            data =
+                JSON.parse(raw);
 
-                data =
-                    JSON.parse(raw);
+        } catch {
 
-            } catch (error) {
-
-                console.error(
-                    "Gemini devolveu resposta não JSON:",
-                    raw
-                );
-
-                return res.status(502).json({
-
-                    message:
-                        "O serviço de IA devolveu uma resposta inválida."
-
-                });
-
-            }
-
+            return res.status(502).json({
+                message:
+                    "O Gemini devolveu uma resposta inválida."
+            });
         }
 
-
-        /* =================================================
-           ERRO GEMINI
-           ================================================= */
+        // ==============================
+        // ERRO GEMINI
+        // ==============================
 
         if (!response.ok) {
 
             console.error(
                 "Erro Gemini:",
-                response.status,
                 data
             );
 
-
             return res.status(502).json({
-
                 message:
                     data?.error?.message ||
-                    "O serviço Gemini não respondeu corretamente."
-
+                    "O serviço de IA não respondeu corretamente."
             });
-
         }
 
-
-        /* =================================================
-           EXTRAIR TEXTO
-           ================================================= */
+        // ==============================
+        // EXTRAIR RESPOSTA
+        // ==============================
 
         const reply =
-            data
-                ?.candidates?.[0]
+            data?.candidates?.[0]
                 ?.content?.parts
-                ?.map(part => part.text || "")
+                ?.map(
+                    part =>
+                        part.text || ""
+                )
                 .join("")
                 .trim();
-
 
         if (!reply) {
 
             console.error(
                 "Gemini não devolveu texto:",
-                JSON.stringify(data)
+                data
             );
 
-
             return res.status(502).json({
-
                 message:
                     "A IA não devolveu uma resposta."
-
             });
-
         }
 
+        // ==============================
+        // SUCESSO
+        // ==============================
 
-        /* =================================================
-           SUCESSO
-           ================================================= */
+        console.log(
+            "✅ Resposta Gemini recebida."
+        );
 
         return res.status(200).json({
-
-            reply: reply
-
+            reply
         });
-
 
     } catch (error) {
 
         console.error(
-            "Erro interno Gemini:",
+            "❌ Erro Gemini:",
             error
         );
 
+        if (
+            error?.name ===
+            "AbortError"
+        ) {
+
+            return res.status(504).json({
+                message:
+                    "A IA demorou demasiado para responder. Tente novamente."
+            });
+        }
 
         return res.status(500).json({
-
             message:
-                "Erro interno no suporte de IA."
-
+                "Erro interno ao contactar a IA."
         });
-
     }
-
 }
