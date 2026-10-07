@@ -1,10 +1,18 @@
-const SYSTEM_PROMPT = `
-És o assistente virtual da TRADERS DE ELITE, uma comunidade social,
-educativa e sem fins lucrativos.
+"use strict";
 
-Responde em português claro, natural, curto e objetivo.
+/* =========================================================
+   TRADERS DE ELITE — SUPORTE IA
+   VERCEL + GOOGLE GEMINI
+   ========================================================= */
+
+const SYSTEM_PROMPT = `
+És o assistente virtual da TRADERS DE ELITE, uma comunidade
+social, educativa e sem fins lucrativos.
+
+Responde em português claro, natural e objetivo.
 
 Podes ajudar com:
+
 - informações sobre a comunidade;
 - formações;
 - inscrição;
@@ -13,16 +21,22 @@ Podes ajudar com:
 - utilização das páginas;
 - dúvidas gerais sobre a TRADERS DE ELITE.
 
-Não inventes preços, horários, contactos, cursos ou regras.
+REGRAS:
 
-Se não souberes uma informação, diz claramente que não tens essa
-informação e recomenda contactar a equipa.
-
-Não dês recomendações financeiras personalizadas.
-Não forneças sinais de compra ou venda.
-Não prometas lucros.
-Não apresentes informação financeira especulativa como facto.
+1. Não inventes preços, horários, contactos, cursos ou regras.
+2. Se não souberes uma informação, diz claramente que não tens
+   essa informação e recomenda contactar a equipa.
+3. Não dês recomendações financeiras personalizadas.
+4. Não forneças sinais de compra ou venda.
+5. Não prometas lucros.
+6. Não apresentes especulação financeira como facto.
+7. Mantém as respostas claras e relativamente curtas.
 `;
+
+
+/* =========================================================
+   CONHECIMENTO DA TRADERS DE ELITE
+   ========================================================= */
 
 const KNOWLEDGE = `
 TRADERS DE ELITE:
@@ -34,140 +48,366 @@ TRADERS DE ELITE:
 - Empreendedorismo.
 - Desenvolvimento pessoal.
 - Valores: disciplina, estratégia e consistência.
-- O site possui páginas de Sobre, Formação, Sala Virtual,
-  Market Desk, Comunidade, Parceiros, Transparência e Suporte IA.
-- Existe um Portal do Estudante.
-- A página de suporte utiliza inteligência artificial apenas
-  para suporte informativo.
 
-Contacto:
-- Telefone: 938979330
+PÁGINAS DO SITE:
+
+- Sobre
+- Formação
+- Sala Virtual
+- Market Desk
+- Comunidade
+- Parceiros
+- Transparência
+- Suporte IA
+
+Também existe um Portal do Estudante.
+
+O suporte de IA fornece informações gerais sobre a comunidade
+e utilização do site.
+
+CONTACTO:
+
+Telefone:
+938979330
 
 O assistente não deve inventar outros contactos.
 `;
 
+
+/* =========================================================
+   FUNÇÃO PRINCIPAL
+   ========================================================= */
+
 export default async function handler(req, res) {
 
-    if (req.method !== "POST") {
+    /* =====================================================
+       CORS
+       ===================================================== */
+
+    res.setHeader(
+        "Access-Control-Allow-Origin",
+        "*"
+    );
+
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, OPTIONS"
+    );
+
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Accept"
+    );
+
+
+    /* =====================================================
+       PREFLIGHT
+       ===================================================== */
+
+    if (req.method === "OPTIONS") {
+
+        return res.status(204).end();
+
+    }
+
+
+    /* =====================================================
+       ACEITAR GET E POST
+       ===================================================== */
+
+    if (
+        req.method !== "GET" &&
+        req.method !== "POST"
+    ) {
+
         return res.status(405).json({
-            message: "Método não permitido."
+
+            message:
+                "Método não permitido."
+
         });
+
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
 
-    if (!apiKey) {
-        console.error("GEMINI_API_KEY não configurada.");
+    /* =====================================================
+       OBTER MENSAGEM
+       ===================================================== */
 
-        return res.status(500).json({
-            message: "A IA ainda não está configurada no servidor."
-        });
+    let message = "";
+
+
+    /* -----------------------------------------------------
+       POST
+       ----------------------------------------------------- */
+
+    if (req.method === "POST") {
+
+        message = String(
+            req.body?.message || ""
+        ).trim();
+
     }
 
-    const message = String(
-        req.body?.message || ""
-    ).trim();
+
+    /* -----------------------------------------------------
+       GET
+       ----------------------------------------------------- */
+
+    if (req.method === "GET") {
+
+        message = String(
+            req.query?.message || ""
+        ).trim();
+
+    }
+
+
+    /* =====================================================
+       VALIDAR
+       ===================================================== */
 
     if (!message) {
+
         return res.status(400).json({
-            message: "Escreva uma mensagem."
+
+            message:
+                "Escreva uma mensagem."
+
         });
+
     }
 
+
     if (message.length > 1200) {
+
         return res.status(400).json({
-            message: "A mensagem é demasiado longa."
+
+            message:
+                "A mensagem é demasiado longa."
+
         });
+
     }
+
+
+    /* =====================================================
+       API KEY
+       ===================================================== */
+
+    const apiKey =
+        process.env.GEMINI_API_KEY;
+
+
+    if (!apiKey) {
+
+        console.error(
+            "GEMINI_API_KEY não configurada."
+        );
+
+        return res.status(500).json({
+
+            message:
+                "A IA ainda não está configurada no servidor."
+
+        });
+
+    }
+
+
+    /* =====================================================
+       MODELO
+       ===================================================== */
+
+    const model =
+        process.env.GEMINI_MODEL ||
+        "gemini-2.5-flash";
+
+
+    /* =====================================================
+       URL GEMINI
+       ===================================================== */
+
+    const url =
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+
+
+    /* =====================================================
+       GEMINI
+       ===================================================== */
 
     try {
 
-        const model =
-            process.env.GEMINI_MODEL ||
-            "gemini-2.5-flash";
+        const response =
+            await fetch(url, {
 
-        const url =
-            `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+                method: "POST",
 
-        const response = await fetch(url, {
-            method: "POST",
+                headers: {
 
-            headers: {
-                "Content-Type": "application/json",
-                "x-goog-api-key": apiKey
-            },
+                    "Content-Type":
+                        "application/json",
 
-            body: JSON.stringify({
+                    "x-goog-api-key":
+                        apiKey
 
-                systemInstruction: {
-                    parts: [
-                        {
-                            text: SYSTEM_PROMPT
-                        }
-                    ]
                 },
 
-                contents: [
-                    {
-                        role: "user",
+                body: JSON.stringify({
+
+                    systemInstruction: {
 
                         parts: [
+
                             {
                                 text:
-                                    `${KNOWLEDGE}
+                                    SYSTEM_PROMPT
+                            }
+
+                        ]
+
+                    },
+
+                    contents: [
+
+                        {
+
+                            role: "user",
+
+                            parts: [
+
+                                {
+
+                                    text:
+                                        `${KNOWLEDGE}
 
 Pergunta do utilizador:
+
 ${message}`
-                            }
-                        ]
+
+                                }
+
+                            ]
+
+                        }
+
+                    ],
+
+                    generationConfig: {
+
+                        temperature: 0.3,
+
+                        maxOutputTokens: 500
+
                     }
-                ],
 
-                generationConfig: {
-                    temperature: 0.3,
-                    maxOutputTokens: 500
-                }
+                })
 
-            })
-        });
+            });
 
-        const data = await response.json();
+
+        /* =================================================
+           LER RESPOSTA
+           ================================================= */
+
+        const raw =
+            await response.text();
+
+
+        let data = null;
+
+
+        if (raw.trim()) {
+
+            try {
+
+                data =
+                    JSON.parse(raw);
+
+            } catch (error) {
+
+                console.error(
+                    "Gemini devolveu resposta não JSON:",
+                    raw
+                );
+
+                return res.status(502).json({
+
+                    message:
+                        "O serviço de IA devolveu uma resposta inválida."
+
+                });
+
+            }
+
+        }
+
+
+        /* =================================================
+           ERRO GEMINI
+           ================================================= */
 
         if (!response.ok) {
 
             console.error(
                 "Erro Gemini:",
-                JSON.stringify(data)
+                response.status,
+                data
             );
 
+
             return res.status(502).json({
+
                 message:
-                    "O serviço de IA não respondeu corretamente."
+                    data?.error?.message ||
+                    "O serviço Gemini não respondeu corretamente."
+
             });
+
         }
 
+
+        /* =================================================
+           EXTRAIR TEXTO
+           ================================================= */
+
         const reply =
-            data?.candidates?.[0]?.content?.parts
+            data
+                ?.candidates?.[0]
+                ?.content?.parts
                 ?.map(part => part.text || "")
                 .join("")
                 .trim();
 
+
         if (!reply) {
 
             console.error(
-                "Resposta Gemini sem texto:",
+                "Gemini não devolveu texto:",
                 JSON.stringify(data)
             );
 
+
             return res.status(502).json({
+
                 message:
                     "A IA não devolveu uma resposta."
+
             });
+
         }
 
+
+        /* =================================================
+           SUCESSO
+           ================================================= */
+
         return res.status(200).json({
-            reply
+
+            reply: reply
+
         });
+
 
     } catch (error) {
 
@@ -176,9 +416,14 @@ ${message}`
             error
         );
 
+
         return res.status(500).json({
+
             message:
                 "Erro interno no suporte de IA."
+
         });
+
     }
+
 }
