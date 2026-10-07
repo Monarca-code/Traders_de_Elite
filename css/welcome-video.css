@@ -1,0 +1,251 @@
+/* =========================================================
+   TRADERS DE ELITE
+   MINI VÍDEO DE BOAS-VINDAS
+   ========================================================= */
+
+.welcome-video {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 360px;
+    max-width: calc(100vw - 32px);
+
+    background: #050505;
+    border: 1px solid rgba(201, 162, 77, 0.45);
+
+    border-radius: 14px;
+    overflow: hidden;
+
+    z-index: 9998;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.55),
+        0 0 30px rgba(201, 162, 77, 0.08);
+
+    animation: welcomeVideoIn 0.45s ease forwards;
+}
+
+.welcome-video-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 13px 15px;
+
+    background: #090909;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.welcome-video-header > div {
+    min-width: 0;
+}
+
+.welcome-video-label {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+
+    color: #c9a24d;
+}
+
+.welcome-video-header strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.welcome-video-close {
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+
+    background: transparent;
+    color: #ffffff;
+
+    font-size: 21px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.welcome-video-close:hover {
+    background: #c9a24d;
+    border-color: #c9a24d;
+    color: #050505;
+}
+
+.welcome-video-player {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+
+    background: #000;
+}
+
+.welcome-video-player iframe {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+}
+
+.welcome-video-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 11px 14px;
+
+    background: #080808;
+}
+
+.welcome-video-footer span {
+    color: rgba(255, 255, 255, 0.62);
+
+    font-size: 10px;
+}
+
+.welcome-video-footer a {
+    color: #c9a24d;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.welcome-video-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Botão para reabrir */
+
+.welcome-video-open {
+    position: fixed;
+
+    right: 24px;
+    bottom: 24px;
+
+    width: 52px;
+    height: 52px;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(201, 162, 77, 0.65);
+    border-radius: 50%;
+
+    background: #050505;
+    color: #c9a24d;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    z-index: 9997;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.45),
+        0 0 20px rgba(201, 162, 77, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.welcome-video-open:hover {
+    background: #c9a24d;
+    color: #050505;
+    transform: scale(1.06);
+}
+
+.welcome-video-open.visible {
+    display: flex;
+}
+
+.welcome-video.hidden {
+    display: none;
+}
+
+@keyframes welcomeVideoIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .welcome-video {
+        right: 12px;
+        bottom: 12px;
+
+        width: calc(70vw - 24px);
+
+        border-radius: 12px;
+    }
+
+    .welcome-video-header {
+        padding: 11px 12px;
+    }
+
+    .welcome-video-header strong {
+        font-size: 13px;
+    }
+
+    .welcome-video-footer {
+        padding: 10px 12px;
+    }
+
+    .welcome-video-footer span {
+        font-size: 9px;
+    }
+
+    .welcome-video-footer a {
+        font-size: 9px;
+    }
+
+    .welcome-video-open {
+        right: 15px;
+        bottom: 15px;
+
+        width: 48px;
+        height: 48px;
+    }
+}   

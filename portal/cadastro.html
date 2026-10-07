@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Criar conta — TRADERS DE ELITE">
+    <meta name="theme-color" content="#050505">
+    <title>Criar Conta | TRADERS DE ELITE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/portal.css">
+</head>
+
+<body>
+<div class="portal-background">
+    <div class="grid"></div>
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+</div>
+
+<main class="auth-page">
+    <section class="auth-card">
+
+        <a href="../index.html" class="portal-logo">
+            <span class="brand-mark" aria-hidden="true">
+                <img src="logo.png" alt="">
+            </span>
+            <span class="logo-text">
+                <strong>TRADERS DE<br>ELITE</strong>
+                <small>PORTAL DO ESTUDANTE</small>
+            </span>
+        </a>
+
+        <div class="auth-heading">
+            <span class="section-label">NOVO MEMBRO</span>
+            <h1>Criar conta<span>.</span></h1>
+            <p>Crie a sua conta para entrar no portal do estudante.</p>
+        </div>
+
+        <form id="registerForm" class="login-form">
+
+            <div class="input-group">
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" name="nome"
+                       placeholder="Seu nome completo"
+                       autocomplete="name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email"
+                       placeholder="seuemail@exemplo.com"
+                       autocomplete="email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="telefone">Telefone / WhatsApp</label>
+                <input type="tel" id="telefone" name="telefone"
+                       placeholder="+244 9XX XXX XXX"
+                       autocomplete="tel">
+            </div>
+
+            <div class="input-group">
+                <label for="password">Senha</label>
+                <div class="password-input">
+                    <input type="password" id="password" name="password"
+                           placeholder="Mínimo 8 caracteres"
+                           minlength="8" autocomplete="new-password" required>
+                    <button type="button" id="togglePassword"
+                            class="toggle-password"
+                            aria-label="Mostrar senha">◉</button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="passwordConfirm">Confirmar senha</label>
+                <div class="password-input">
+                    <input type="password" id="passwordConfirm"
+                           name="passwordConfirm"
+                           placeholder="Digite novamente a senha"
+                           minlength="8" autocomplete="new-password" required>
+                    <button type="button" id="togglePasswordConfirm"
+                            class="toggle-password"
+                            aria-label="Mostrar confirmação da senha">◉</button>
+                </div>
+            </div>
+
+            <button type="submit" id="registerButton" class="btn-login">
+                CRIAR MINHA CONTA <span>→</span>
+            </button>
+
+            <p id="registerMessage" class="form-message" aria-live="polite"></p>
+        </form>
+
+        <div class="auth-divider">
+            <span>já possui uma conta?</span>
+        </div>
+
+        <div class="register-box">
+            <a href="login.html" class="register-link">
+                ENTRAR NO PORTAL <span>→</span>
+            </a>
+        </div>
+
+        <a href="../index.html" class="back-link">← Voltar ao website</a>
+    </section>
+
+    <footer class="auth-footer">
+        <span>© <span id="year"></span> TRADERS DE ELITE</span>
+        <span>Angola</span>
+    </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/appwrite@17"></script>
+<script src="../js/appwrite-config.js"></script>
+<script src="js/cadastro.js"></script>
+</body>
+</html>

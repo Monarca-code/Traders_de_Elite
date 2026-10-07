@@ -1,0 +1,57 @@
+/* SUPORTE IA — TRADERS DE ELITE */
+.support-page { min-height:100vh; }
+.active-link { color: var(--gold-light) !important; }
+.support-main { min-height:100vh; padding:145px 20px 70px; }
+.support-shell { width:min(1120px, 100%); margin:auto; display:grid; grid-template-columns:.75fr 1.25fr; gap:46px; align-items:center; }
+.support-intro h1 { font-family:"Playfair Display",serif; font-size:clamp(46px,5vw,72px); line-height:1; margin:16px 0 20px; letter-spacing:-.04em; }
+.support-intro h1 em { color:var(--gold-light); font-style:normal; }
+.support-intro p { color:#aaaab3; max-width:420px; font-size:15px; }
+.support-notice { display:inline-flex; align-items:center; gap:9px; margin-top:28px; padding:9px 13px; border:1px solid var(--border); border-radius:999px; color:#cfcfd5; font-size:12px; background:rgba(212,175,55,.035); }
+.notice-dot { width:7px; height:7px; border-radius:50%; background:#7ccf86; box-shadow:0 0 12px rgba(124,207,134,.45); }
+.chat-card { height:min(690px, calc(100vh - 185px)); min-height:570px; display:flex; flex-direction:column; overflow:hidden; background:rgba(11,11,13,.9); border:1px solid var(--border); border-radius:22px; box-shadow:0 25px 80px rgba(0,0,0,.35); }
+.chat-head { display:flex; align-items:center; gap:12px; padding:17px 20px; border-bottom:1px solid var(--border-light); }
+.assistant-avatar { width:42px; height:42px; display:grid; place-items:center; flex:none; border-radius:50%; color:#090805; background:linear-gradient(135deg,var(--gold-light),var(--gold)); font-weight:800; font-size:12px; }
+.chat-head strong { display:block; font-size:14px; }
+.chat-head small { color:#777780; font-size:11px; }
+.clear-chat { margin-left:auto; background:transparent; color:#777780; cursor:pointer; font-size:11px; }
+.clear-chat:hover { color:var(--gold-light); }
+.quick-actions { display:flex; gap:8px; padding:13px 16px; overflow-x:auto; border-bottom:1px solid rgba(255,255,255,.045); scrollbar-width:none; }
+.quick-actions::-webkit-scrollbar { display:none; }
+.quick-actions button { white-space:nowrap; padding:8px 11px; border:1px solid var(--border-light); border-radius:999px; background:#101013; color:#aaaab2; cursor:pointer; font-size:11px; }
+.quick-actions button:hover { border-color:var(--border); color:var(--gold-light); }
+.messages { flex:1; overflow-y:auto; padding:22px; display:flex; flex-direction:column; gap:14px; scroll-behavior:smooth; }
+.message { display:flex; max-width:84%; animation:msgIn .25s ease; }
+.message.bot { align-self:flex-start; }
+.message.user { align-self:flex-end; }
+.bubble { padding:12px 15px; border-radius:16px; color:#d8d8dd; font-size:13px; line-height:1.65; white-space:pre-wrap; }
+.bot .bubble { background:#141418; border:1px solid rgba(255,255,255,.06); border-bottom-left-radius:5px; }
+.user .bubble { background:linear-gradient(135deg,#e4c95e,#c9a52d); color:#0b0a06; border-bottom-right-radius:5px; font-weight:500; }
+.typing .bubble { color:#777780; }
+.chat-form { display:flex; gap:10px; padding:14px; border-top:1px solid var(--border-light); background:#09090b; }
+.chat-form textarea { flex:1; resize:none; min-height:48px; max-height:120px; padding:13px 14px; outline:none; border:1px solid var(--border-light); border-radius:13px; background:#111114; color:var(--white); font-size:13px; }
+.chat-form textarea:focus { border-color:rgba(212,175,55,.45); }
+.chat-form button { width:105px; border-radius:13px; cursor:pointer; color:#090805; background:linear-gradient(135deg,var(--gold-light),var(--gold)); font-weight:800; }
+.chat-form button:disabled { opacity:.5; cursor:not-allowed; }
+.chat-form button b { margin-left:6px; }
+.chat-disclaimer { padding:0 17px 13px; margin:0; color:#5f5f67; font-size:9px; text-align:center; }
+@keyframes msgIn { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
+@media(max-width:980px) {
+ .support-main { padding-top:120px; }
+ .support-shell { grid-template-columns:1fr; gap:28px; max-width:760px; }
+ .support-intro { text-align:center; }
+ .support-intro p { margin:auto; }
+ .support-notice { margin-top:18px; }
+ .chat-card { height:650px; }
+}
+@media(max-width:650px) {
+ .support-main { padding:105px 10px 25px; }
+ .support-intro h1 { font-size:42px; }
+ .support-intro p { font-size:13px; }
+ .chat-card { min-height:0; height:calc(100vh - 240px); max-height:700px; border-radius:18px; }
+ .messages { padding:16px 12px; }
+ .message { max-width:91%; }
+ .chat-form { padding:10px; }
+ .chat-form button { width:82px; }
+ .chat-form button span { display:none; }
+ .chat-form textarea { min-height:46px; }
+}

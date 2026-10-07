@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso | TRADERS DE ELITE</title>
+<link rel="stylesheet" href="css/portal.css">
+</head>
+<body>
+<header class="portal-header">
+    <a href="dashboard.html" class="logo">TRADERS DE ELITE <small>PORTAL</small></a>
+    <button id="logoutBtn" class="logout">SAIR</button>
+</header>
+<main class="portal-main">
+    <a class="back" href="dashboard.html">← Dashboard</a>
+    <div id="courseHeader" class="course-header"></div>
+
+<!-- PROGRESSO DO CURSO -->
+<div id="courseProgress" class="course-progress">
+    <div class="progress-info">
+        <span id="progressLessons">0 / 0 aulas</span>
+        <span id="progressPercent">0%</span>
+    </div>
+
+    <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+    </div>
+</div>
+
+<div id="modules" class="modules"></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/appwrite@17"></script>
+<script src="../js/appwrite-config.js"></script>
+<script src="js/course.js"></script>
+</body>
+</html>

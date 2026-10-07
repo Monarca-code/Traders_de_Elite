@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin | TRADERS DE ELITE</title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- =========================================
+         CABEÇALHO
+    ========================================== -->
+
+   <header class="admin-header">
+
+    <div class="admin-brand">
+        <span class="admin-label">ADMINISTRAÇÃO</span>
+        <h1>TRADERS DE ELITE</h1>
+    </div>
+
+    <div class="header-actions">
+
+        <button type="button" id="studentsBtn" class="students-button">
+            👥 Alunos
+        </button>
+
+        <a href="../../index.html" class="back-button">
+            ← Portal
+        </a>
+
+        <button type="button" id="logoutBtn" class="logout-button">
+            SAIR
+        </button>
+
+    </div>
+
+</header>
+
+
+    <!-- =========================================
+         CONTEÚDO
+    ========================================== -->
+<!-- =========================================
+     PERCURSO DOS ALUNOS
+========================================== -->
+
+<!-- =========================================
+     POPUP — ALUNOS
+========================================= -->
+
+<div id="studentsModal" class="students-modal">
+
+    <div class="students-modal-overlay"></div>
+
+    <div class="students-modal-content">
+
+        <div class="students-modal-header">
+
+            <div>
+                <span class="section-label">ESTUDANTES</span>
+
+                <h2>Percurso dos alunos</h2>
+
+                <p>
+                    Acompanhe os alunos, cursos em andamento
+                    e formações concluídas.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                id="closeStudentsBtn"
+                class="close-students-button"
+                aria-label="Fechar"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <!-- ESTATÍSTICAS -->
+
+        <div class="students-stats">
+
+            <div class="student-stat-card">
+
+                <span class="student-stat-icon">
+                    👥
+                </span>
+
+                <div>
+                    <span>Total de alunos</span>
+                    <strong id="totalStudentsCount">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="student-stat-card">
+
+                <span class="student-stat-icon">
+                    📚
+                </span>
+
+                <div>
+                    <span>Em formação</span>
+                    <strong id="activeStudentsCount">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="student-stat-card">
+
+                <span class="student-stat-icon">
+                    🎓
+                </span>
+
+                <div>
+                    <span>Cursos concluídos</span>
+                    <strong id="completedStudentsCount">0</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PESQUISA / FILTROS -->
+
+        <div class="students-toolbar">
+
+            <div class="student-search">
+
+                <label for="studentSearch">
+                    Pesquisar aluno
+                </label>
+
+                <input
+                    type="search"
+                    id="studentSearch"
+                    placeholder="Nome ou e-mail..."
+                >
+
+            </div>
+
+
+            <div class="student-filter">
+
+                <label for="studentStatusFilter">
+                    Estado
+                </label>
+
+                <select id="studentStatusFilter">
+
+                    <option value="todos">
+                        Todos
+                    </option>
+
+                    <option value="andamento">
+                        Em formação
+                    </option>
+
+                    <option value="concluido">
+                        Curso concluído
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="refreshStudentsBtn"
+                class="secondary-button"
+            >
+                ↻ Atualizar
+            </button>
+
+        </div>
+
+
+        <!-- LISTA -->
+
+        <div id="studentsList" class="students-list">
+
+            <div class="loading">
+                A carregar alunos...
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+    <main class="admin-main">
+
+        <!-- =====================================
+             CURSOS
+        ====================================== -->
+
+        <section class="admin-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        FORMAÇÃO
+                    </span>
+
+                    <h2>
+                        Cursos
+                    </h2>
+
+                    <p>
+                        Crie e gerencie os cursos da plataforma.
+                    </p>
+
+                </div>
+
+                <button
+                    id="newCourseBtn"
+                    class="primary-button"
+                >
+                    + Novo curso
+                </button>
+
+            </div>
+
+
+            <div
+                id="coursesList"
+                class="items-list"
+            >
+
+                <div class="loading">
+                    A carregar cursos...
+                </div>
+
+            </div>
+
+        </section>
+
+<section class="admin-section">
+
+    <div class="section-heading">
+
+        <div>
+            <span class="section-kicker">MÓDULOS</span>
+            <h2>Módulos do curso</h2>
+        </div>
+
+        <button
+            type="button"
+            id="newModuleBtn"
+            class="admin-button primary"
+        >
+            + Novo módulo
+        </button>
+
+    </div>
+
+    <select id="moduleCourseSelect" class="admin-select">
+        <option value="">Selecione um curso</option>
+    </select>
+
+    <div id="modulesList" class="admin-list">
+
+        <div class="empty-state">
+            Selecione um curso para ver os módulos.
+        </div>
+
+    </div>
+
+</section>
+
+
+        <!-- =====================================
+             AULAS
+        ====================================== -->
+
+        <section class="admin-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        CONTEÚDO
+                    </span>
+
+                    <h2>
+                        Aulas
+                    </h2>
+
+                    <p>
+                        Crie, edite, publique e organize as aulas.
+                        Os vídeos são links dos canais do YouTube.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="newLessonBtn"
+                    class="primary-button"
+                >
+                    + Nova aula
+                </button>
+
+            </div>
+
+
+            <div class="selector-area">
+
+                <label for="lessonModuleSelect">
+                    Módulo
+                </label>
+
+                <select
+                    id="lessonModuleSelect"
+                >
+
+                    <option value="">
+                        Selecione um módulo
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="lessonsList"
+                class="items-list"
+            >
+
+                <div class="empty-message">
+                    Selecione um módulo para ver as aulas.
+                </div>
+
+            </div>
+
+        </section>
+        <section class="admin-section" id="certificateRequestsSection">
+
+    <div class="admin-page-heading">
+        <span>CERTIFICAÇÃO</span>
+        <h1>Pedidos de certificados</h1>
+        <p>
+            Consulte e processe as solicitações de certificados dos alunos.
+        </p>
+    </div>
+
+    <div class="admin-stats">
+        <div class="admin-stat-card">
+            <span>Pedidos pendentes</span>
+            <strong id="pendingCertificatesCount">0</strong>
+        </div>
+
+        <div class="admin-stat-card">
+            <span>Aprovados</span>
+            <strong id="approvedCertificatesCount">0</strong>
+        </div>
+
+        <div class="admin-stat-card">
+            <span>Rejeitados</span>
+            <strong id="rejectedCertificatesCount">0</strong>
+        </div>
+    </div>
+
+    <div id="certificateRequestsList">
+        <div class="loading">
+            A carregar pedidos...
+        </div>
+    </div>
+
+</section>
+
+    </main>
+
+
+    <!-- =========================================
+         MODAL CURSO
+    ========================================== -->
+
+    <div
+        id="courseModal"
+        class="modal"
+    >
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="section-label">
+                        CURSO
+                    </span>
+
+                    <h2 id="courseModalTitle">
+                        Novo curso
+                    </h2>
+
+                </div>
+
+                <button
+                    id="closeCourseModal"
+                    class="close-button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="courseForm">
+
+                <input
+                    type="hidden"
+                    id="courseId"
+                >
+
+
+                <div class="form-group">
+
+                    <label for="courseTitle">
+                        Título
+                    </label>
+
+                    <input
+                        type="text"
+                        id="courseTitle"
+                        required
+                        placeholder="Ex.: Introdução ao Trading"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="courseDescription">
+                        Descrição
+                    </label>
+
+                    <textarea
+                        id="courseDescription"
+                        rows="5"
+                        placeholder="Descrição do curso..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="courseImage">
+                        URL da imagem
+                    </label>
+
+                    <input
+                        type="url"
+                        id="courseImage"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="form-check">
+
+                    <input
+                        type="checkbox"
+                        id="coursePublished"
+                        checked
+                    >
+
+                    <label for="coursePublished">
+                        Publicar curso
+                    </label>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        id="cancelCourseBtn"
+                        class="secondary-button"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Guardar curso
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL DO MÓDULO -->
+
+<div id="moduleModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <span class="section-kicker">MÓDULO</span>
+                <h2 id="moduleModalTitle">Novo módulo</h2>
+            </div>
+
+            <button
+                type="button"
+                id="closeModuleModal"
+                class="modal-close"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <form id="moduleForm">
+
+            <input
+                type="hidden"
+                id="moduleId"
+            >
+
+            <div class="form-group">
+
+                <label for="moduleCourse">
+                    Curso
+                </label>
+
+                <select
+                    id="moduleCourse"
+                    required
+                >
+                    <option value="">
+                        Selecione um curso
+                    </option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="moduleTitle">
+                    Nome do módulo
+                </label>
+
+                <input
+                    type="text"
+                    id="moduleTitle"
+                    placeholder="Ex.: Introdução ao Trading"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="moduleOrder">
+                    Ordem
+                </label>
+
+                <input
+                    type="number"
+                    id="moduleOrder"
+                    min="1"
+                    value="1"
+                    required
+                >
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelModuleBtn"
+                    class="admin-button secondary"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="admin-button primary"
+                >
+                    Guardar módulo
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+
+    <!-- =========================================
+         MODAL DA AULA
+    ========================================== -->
+
+    <div
+        id="lessonModal"
+        class="modal"
+    >
+
+        <div class="modal-content lesson-modal-content">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="section-label">
+                        AULA
+                    </span>
+
+                    <h2 id="lessonModalTitle">
+                        Nova aula
+                    </h2>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="closeLessonModal"
+                    class="close-button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <form id="lessonForm">
+
+                <input
+                    type="hidden"
+                    id="lessonId"
+                >
+
+                <div class="form-group">
+
+                    <label for="lessonModule">
+                        Módulo
+                    </label>
+
+                    <select
+                        id="lessonModule"
+                        required
+                    >
+                        <option value="">
+                            Selecione um módulo
+                        </option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="lessonTitle">
+                        Título da aula
+                    </label>
+
+                    <input
+                        type="text"
+                        id="lessonTitle"
+                        required
+                        placeholder="Ex.: O que é Trading?"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="lessonDescription">
+                        Descrição
+                    </label>
+
+                    <textarea
+                        id="lessonDescription"
+                        rows="3"
+                        placeholder="Breve descrição da aula..."
+                    ></textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="lessonVideoUrl">
+                        Vídeo do YouTube
+                    </label>
+
+                    <input
+                        type="url"
+                        id="lessonVideoUrl"
+                        placeholder="https://www.youtube.com/watch?v=..."
+                    >
+
+                    <small class="form-help">
+                        Cole o link do vídeo publicado no YouTube.
+                        O portal transforma o link automaticamente em vídeo incorporado.
+                    </small>
+
+                    <div
+                        id="lessonVideoPreview"
+                        class="video-preview"
+                    >
+                        <div class="video-preview-empty">
+                            A pré-visualização do YouTube aparecerá aqui.
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="lessonContent">
+                        Conteúdo da aula
+                    </label>
+
+                    <textarea
+                        id="lessonContent"
+                        rows="10"
+                        placeholder="Escreva aqui o conteúdo, explicação, exercícios ou notas da aula..."
+                    ></textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="lessonOrder">
+                        Ordem da aula
+                    </label>
+
+                    <input
+                        type="number"
+                        id="lessonOrder"
+                        min="1"
+                        value="1"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-check">
+
+                    <input
+                        type="checkbox"
+                        id="lessonPublished"
+                        checked
+                    >
+
+                    <label for="lessonPublished">
+                        Publicar aula
+                    </label>
+
+                </div>
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        id="cancelLessonBtn"
+                        class="secondary-button"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Guardar aula
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         APPWRITE
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@17"></script>
+
+    <script src="../../js/appwrite-config.js"></script>
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>

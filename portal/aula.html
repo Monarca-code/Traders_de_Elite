@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula | TRADERS DE ELITE</title>
+<link rel="stylesheet" href="css/portal.css">
+</head>
+<body>
+<header class="portal-header">
+    <a href="dashboard.html" class="logo">TRADERS DE ELITE <small>PORTAL</small></a>
+    <button id="logoutBtn" class="logout">SAIR</button>
+</header>
+<main class="portal-main lesson-page">
+    <a id="backCourse" class="back" href="dashboard.html">← Voltar</a>
+    <div id="lessonHeader"></div>
+    <div id="video" class="video-box"></div>
+    <div class="lesson-actions">
+        <button id="completeBtn">MARCAR COMO CONCLUÍDA ✓</button>
+    </div>
+    <div id="lessonContent" class="lesson-content"></div>
+    <div class="lesson-navigation">
+
+    <a
+        href="#"
+        id="previousLesson"
+        class="lesson-nav-button previous"
+    >
+        ← Aula anterior
+    </a>
+
+    <div
+        id="lessonPosition"
+        class="lesson-position"
+    >
+        Aula 1 de 1
+    </div>
+
+    <a
+        href="#"
+        id="nextLesson"
+        class="lesson-nav-button next"
+    >
+        Próxima aula →
+    </a>
+
+</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/appwrite@17"></script>
+<script src="../js/appwrite-config.js"></script>
+<script src="js/ula.js"></script>
+</body>
+</html>

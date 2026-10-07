@@ -1,0 +1,1356 @@
+/* =========================================================
+   TRADERS DE ELITE — PORTAL
+   portal/css/portal.css
+   ========================================================= */
+
+:root {
+    --black: #050505;
+    --black-soft: #0b0b0b;
+    --black-card: #111111;
+    --black-card-2: #151515;
+
+    --gold: #c9a24d;
+    --gold-light: #e2c477;
+    --gold-dark: #96752f;
+
+    --white: #f5f5f5;
+    --text: #d8d8d8;
+    --muted: #888888;
+
+    --border: rgba(201, 162, 77, 0.20);
+    --border-light: rgba(255, 255, 255, 0.08);
+
+    --success: #55c98a;
+    --danger: #e36b6b;
+
+    --radius: 14px;
+    --transition: 0.25s ease;
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--black);
+    color: var(--text);
+    font-family: "DM Sans", Arial, sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* =========================================================
+   LOGIN — BACKGROUND
+   ========================================================= */
+
+.portal-background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(201, 162, 77, 0.08),
+            transparent 35%
+        ),
+        #050505;
+}
+
+.grid {
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+    );
+}
+
+.glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.08;
+}
+
+.glow-one {
+    background: var(--gold);
+    top: -250px;
+    left: -150px;
+}
+
+.glow-two {
+    background: #ffffff;
+    bottom: -300px;
+    right: -200px;
+}
+
+/* =========================================================
+   LOGIN PAGE
+   ========================================================= */
+
+.auth-page {
+    position: relative;
+    z-index: 1;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 470px;
+
+    background: rgba(12, 12, 12, 0.96);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 42px;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.portal-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+
+    margin-bottom: 38px;
+}
+
+.logo-mark {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    gap: 3px;
+
+    padding: 7px;
+
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+
+    background: rgba(201, 162, 77, 0.04);
+}
+
+.logo-mark span {
+    display: block;
+    width: 5px;
+
+    background: var(--gold);
+
+    border-radius: 2px 2px 0 0;
+}
+
+.logo-mark span:nth-child(1) {
+    height: 35%;
+}
+
+.logo-mark span:nth-child(2) {
+    height: 65%;
+}
+
+.logo-mark span:nth-child(3) {
+    height: 100%;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-text strong {
+    color: var(--white);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 15px;
+    line-height: 1.05;
+
+    letter-spacing: 0.08em;
+}
+
+.logo-text small {
+    margin-top: 5px;
+
+    color: var(--gold);
+
+    font-size: 8px;
+
+    letter-spacing: 0.18em;
+}
+
+/* =========================================================
+   LOGIN HEADING
+   ========================================================= */
+
+.auth-heading {
+    margin-bottom: 30px;
+}
+
+.section-label {
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    color: var(--gold);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+}
+
+.auth-heading h1 {
+    color: var(--white);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(38px, 6vw, 48px);
+
+    line-height: 1.1;
+
+    margin-bottom: 12px;
+}
+
+.auth-heading h1 span {
+    color: var(--gold);
+}
+
+.auth-heading p {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    max-width: 360px;
+}
+
+/* =========================================================
+   LOGIN FORM
+   ========================================================= */
+
+.login-form {
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 21px;
+}
+
+.input-group label,
+.password-label label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #d5d5d5;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+
+    height: 52px;
+
+    padding: 0 15px;
+
+    color: var(--white);
+
+    background: #090909;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 8px;
+
+    outline: none;
+
+    transition: var(--transition);
+}
+
+.input-group input::placeholder {
+    color: #555;
+}
+
+.input-group input:focus {
+    border-color: var(--gold);
+
+    box-shadow:
+        0 0 0 3px rgba(201, 162, 77, 0.08);
+}
+
+.password-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.password-label label {
+    margin-bottom: 8px;
+}
+
+.password-label a {
+    color: var(--gold);
+
+    font-size: 11px;
+
+    transition: var(--transition);
+}
+
+.password-label a:hover {
+    color: var(--gold-light);
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-input input {
+    padding-right: 50px;
+}
+
+.toggle-password {
+    position: absolute;
+
+    top: 50%;
+    right: 5px;
+
+    width: 42px;
+    height: 42px;
+
+    transform: translateY(-50%);
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--gold);
+
+    font-size: 15px;
+}
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+.btn-login {
+    width: 100%;
+
+    min-height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    margin-top: 8px;
+
+    border: 1px solid var(--gold);
+
+    border-radius: 8px;
+
+    background: var(--gold);
+
+    color: #090909;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+
+    transition: var(--transition);
+}
+
+.btn-login span {
+    font-size: 18px;
+}
+
+.btn-login:hover {
+    background: var(--gold-light);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 25px rgba(201, 162, 77, 0.15);
+}
+
+.btn-login:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =========================================================
+   FORM MESSAGE
+   ========================================================= */
+
+.form-message {
+    min-height: 22px;
+
+    margin-top: 14px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    text-align: center;
+}
+
+.form-message.error {
+    color: var(--danger);
+}
+
+.form-message.success {
+    color: var(--success);
+}
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 28px 0;
+
+    color: #555;
+
+    font-size: 11px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   REGISTER BOX
+   ========================================================= */
+
+.register-box {
+    padding: 20px;
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    border-radius: 10px;
+}
+
+.register-box p {
+    margin-bottom: 10px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.register-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--gold);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+}
+
+.register-link:hover {
+    color: var(--gold-light);
+}
+
+/* =========================================================
+   BACK LINK
+   ========================================================= */
+
+.back-link {
+    display: block;
+
+    margin-top: 25px;
+
+    color: #777;
+
+    font-size: 12px;
+
+    text-align: center;
+
+    transition: var(--transition);
+}
+
+.back-link:hover {
+    color: var(--gold);
+}
+
+/* =========================================================
+   AUTH FOOTER
+   ========================================================= */
+
+.auth-footer {
+    width: 100%;
+    max-width: 470px;
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 20px;
+
+    color: #555;
+
+    font-size: 10px;
+
+    letter-spacing: 0.04em;
+}
+
+/* =========================================================
+   DASHBOARD HEADER
+   ========================================================= */
+
+.portal-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 5%;
+
+    background: rgba(5, 5, 5, 0.94);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+    backdrop-filter: blur(15px);
+}
+
+.portal-header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--white);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    letter-spacing: 0.06em;
+}
+
+.portal-header .logo small {
+    color: var(--gold);
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 8px;
+
+    letter-spacing: 0.18em;
+}
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.logout {
+    padding: 9px 18px;
+
+    color: var(--gold);
+
+    background: transparent;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+
+    transition: var(--transition);
+}
+
+.logout:hover {
+    color: #080808;
+    background: var(--gold);
+
+    border-color: var(--gold);
+}
+
+/* =========================================================
+   DASHBOARD MAIN
+   ========================================================= */
+
+.portal-main {
+    width: min(1180px, 90%);
+
+    margin: 0 auto;
+
+    padding: 70px 0 100px;
+}
+
+/* =========================================================
+   WELCOME
+   ========================================================= */
+
+.welcome {
+    margin-bottom: 45px;
+}
+
+.welcome > span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--gold);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.2em;
+}
+
+.welcome h1 {
+    color: var(--white);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(34px, 5vw, 52px);
+
+    line-height: 1.15;
+
+    margin-bottom: 10px;
+}
+
+.welcome h1 em {
+    color: var(--gold);
+
+    font-style: normal;
+}
+
+.welcome p {
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-bottom: 70px;
+}
+
+.stats article {
+    min-height: 125px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 25px;
+
+    background: var(--black-card);
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius);
+
+    transition: var(--transition);
+}
+
+.stats article:hover {
+    border-color: var(--border);
+
+    transform: translateY(-2px);
+}
+
+.stats small {
+    margin-bottom: 7px;
+
+    color: var(--muted);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+}
+
+.stats strong {
+    color: var(--gold);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 35px;
+}
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+.section-title {
+    margin-bottom: 25px;
+}
+
+.section-title > span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--gold);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.2em;
+}
+
+.section-title h2 {
+    color: var(--white);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 32px;
+}
+
+/* =========================================================
+   COURSE LIST
+   ========================================================= */
+
+.course-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.course-item {
+    display: block;
+
+    padding: 28px;
+
+    background: var(--black-card);
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius);
+
+    transition: var(--transition);
+}
+
+.course-item:hover {
+    border-color: var(--gold);
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.course-item h3 {
+    margin-bottom: 8px;
+
+    color: var(--white);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 22px;
+}
+
+.course-item p {
+    min-height: 45px;
+
+    margin-bottom: 20px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   PROGRESS BAR
+   ========================================================= */
+
+.progress {
+    width: 100%;
+    height: 5px;
+
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    border-radius: 10px;
+}
+
+.progress b {
+    display: block;
+
+    width: 0;
+    height: 100%;
+
+    background: var(--gold);
+
+    border-radius: inherit;
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.loading {
+    padding: 35px;
+
+    color: var(--muted);
+
+    background: var(--black-card);
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius);
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   COURSE PAGE
+   ========================================================= */
+
+.back {
+    display: inline-flex;
+
+    margin-bottom: 25px;
+
+    color: var(--gold);
+
+    font-size: 12px;
+
+    transition: var(--transition);
+}
+
+.back:hover {
+    color: var(--gold-light);
+}
+
+.course-header {
+    padding: 35px;
+
+    margin-bottom: 35px;
+
+    background: var(--black-card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+}
+
+.course-header h1 {
+    margin-bottom: 10px;
+
+    color: var(--white);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(30px, 5vw, 46px);
+}
+
+.course-header p {
+    max-width: 750px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   MODULES
+   ========================================================= */
+
+.modules {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.module {
+    overflow: hidden;
+
+    background: var(--black-card);
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius);
+}
+
+.module-header {
+    padding: 22px 25px;
+
+    color: var(--white);
+
+    font-weight: 700;
+
+    border-bottom: 1px solid var(--border-light);
+}
+
+.lessons {
+    display: flex;
+    flex-direction: column;
+}
+
+.lesson {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 18px 25px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+    transition: var(--transition);
+}
+
+.lesson:last-child {
+    border-bottom: 0;
+}
+
+.lesson:hover {
+    background: rgba(201, 162, 77, 0.04);
+}
+
+.lesson-title {
+    color: #ddd;
+
+    font-size: 13px;
+}
+
+.lesson-status {
+    color: var(--gold);
+
+    font-size: 10px;
+}
+
+/* =========================================================
+   LESSON PAGE
+   ========================================================= */
+
+.lesson-page {
+    max-width: 1000px;
+}
+
+#lessonHeader {
+    margin-bottom: 25px;
+}
+
+#lessonHeader h1 {
+    margin-bottom: 8px;
+
+    color: var(--white);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(30px, 5vw, 45px);
+}
+
+#lessonHeader p {
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   VIDEO
+   ========================================================= */
+
+.video-box {
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    margin-bottom: 25px;
+
+    overflow: hidden;
+
+    background: #000;
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius);
+}
+
+.video-box iframe {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    border: 0;
+}
+
+/* =========================================================
+   LESSON ACTIONS
+   ========================================================= */
+
+.lesson-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-bottom: 30px;
+}
+
+#completeBtn {
+    padding: 13px 20px;
+
+    color: #090909;
+
+    background: var(--gold);
+
+    border: 1px solid var(--gold);
+
+    border-radius: 7px;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+
+    transition: var(--transition);
+}
+
+#completeBtn:hover {
+    background: var(--gold-light);
+
+    transform: translateY(-1px);
+}
+
+#completeBtn.completed {
+    color: var(--success);
+
+    background: transparent;
+
+    border-color: var(--success);
+}
+
+/* =========================================================
+   LESSON CONTENT
+   ========================================================= */
+
+.lesson-content {
+    padding: 35px;
+
+    background: var(--black-card);
+
+    border: 1px solid var(--border-light);
+
+    border-radius: var(--radius);
+
+    color: #cfcfcf;
+
+    font-size: 15px;
+
+    line-height: 1.9;
+}
+
+.lesson-content h2,
+.lesson-content h3 {
+    margin: 25px 0 10px;
+
+    color: var(--white);
+
+    font-family: "Playfair Display", serif;
+}
+
+.lesson-content h2:first-child,
+.lesson-content h3:first-child {
+    margin-top: 0;
+}
+
+.lesson-content p {
+    margin-bottom: 15px;
+}
+
+.lesson-content ul,
+.lesson-content ol {
+    margin: 15px 0 20px;
+
+    padding-left: 25px;
+}
+
+.lesson-content li {
+    margin-bottom: 8px;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .auth-card {
+        padding: 35px 28px;
+    }
+
+    .portal-main {
+        padding-top: 50px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .course-list {
+        grid-template-columns: 1fr;
+    }
+
+    .course-item p {
+        min-height: auto;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .auth-page {
+        padding: 25px 15px;
+    }
+
+    .auth-card {
+        padding: 30px 22px;
+
+        border-radius: 14px;
+    }
+
+    .portal-logo {
+        margin-bottom: 30px;
+    }
+
+    .auth-heading h1 {
+        font-size: 38px;
+    }
+
+    .auth-heading p {
+        font-size: 13px;
+    }
+
+    .auth-footer {
+        padding: 0 5px;
+
+        font-size: 9px;
+    }
+
+    .portal-header {
+        height: 68px;
+
+        padding: 0 20px;
+    }
+
+    .portal-header .logo {
+        font-size: 14px;
+    }
+
+    .portal-header .logo small {
+        display: none;
+    }
+
+    .logout {
+        padding: 8px 13px;
+
+        font-size: 9px;
+    }
+
+    .portal-main {
+        width: 92%;
+
+        padding: 40px 0 70px;
+    }
+
+    .welcome {
+        margin-bottom: 35px;
+    }
+
+    .welcome h1 {
+        font-size: 34px;
+    }
+
+    .stats {
+        gap: 10px;
+
+        margin-bottom: 50px;
+    }
+
+    .stats article {
+        min-height: 100px;
+
+        padding: 20px;
+    }
+
+    .stats strong {
+        font-size: 30px;
+    }
+
+    .section-title h2 {
+        font-size: 27px;
+    }
+
+    .course-item {
+        padding: 22px;
+    }
+
+    .course-item h3 {
+        font-size: 20px;
+    }
+
+    .course-header {
+        padding: 25px 20px;
+    }
+
+    .lesson {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 8px;
+
+        padding: 17px 20px;
+    }
+
+    .lesson-content {
+        padding: 22px;
+
+        font-size: 14px;
+    }
+
+    .lesson-actions {
+        justify-content: stretch;
+    }
+
+    #completeBtn {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   VERY SMALL SCREENS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .auth-card {
+        padding: 25px 18px;
+    }
+
+    .auth-heading h1 {
+        font-size: 34px;
+    }
+
+    .portal-header {
+        padding: 0 14px;
+    }
+
+    .portal-header .logo {
+        font-size: 12px;
+    }
+
+    .portal-main {
+        width: 94%;
+    }
+}

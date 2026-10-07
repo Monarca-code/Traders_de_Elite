@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Market Desk do TRADERS DE ELITE — acompanhamento educacional dos mercados financeiros."
+    >
+
+    <title>Market Desk | TRADERS DE ELITE</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/mercado.css"
+    >
+    
+    <link rel="stylesheet" href="../css/mobile-fix.css">
+</head>
+
+<body>
+
+<header class="site-header" id="header">
+
+    <div class="container header-inner">
+
+        <a
+            href="../index.html"
+            class="brand"
+            aria-label="TRADERS DE ELITE"
+        >
+            <span class="brand-mark" aria-hidden="true">
+                <img src="logo.png" alt="">
+            </span>
+        </a>
+
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="../index.html">
+                INÍCIO
+            </a>
+
+            <a href="sobre.html">
+                SOBRE
+            </a>
+
+            <a href="formacao.html">
+                FORMAÇÃO
+            </a>
+
+            <a href="sala-virtual.html">
+                SALA<br>VIRTUAL
+            </a>
+
+            <a
+                href="mercado.html"
+                class="active"
+            >
+                MARKET<br>DESK
+            </a>
+
+            <a href="comunidade.html">
+                COMUNIDADE
+            </a>
+
+            <a href="parceiros.html">
+                PARCEIROS
+            </a>
+
+            <a href="transparencia.html">
+    TRANSPARÊNCIA
+            </a>
+
+        </nav>
+
+    <div class="nav-actions">
+                <a class="btn btn-gold btn-small" href="../index.html">
+    ◉ Website Público
+</a>
+
+<a class="btn btn-dark btn-small" href="../portal/login.html">
+    ♟ Portal do Estudante
+</a>
+            </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="market-hero">
+
+        <div class="container">
+
+            <div class="market-hero-content">
+
+                <span class="eyebrow">
+                    MARKET DESK
+                </span>
+
+                <h1>
+                    Mercado em
+                    <span>perspectiva.</span>
+                </h1>
+
+                <p>
+                    Acompanhe preços e movimentos de mercado
+                    para fins educacionais e análise.
+                </p>
+
+                <div class="market-status">
+
+                    <span
+                        class="status-dot"
+                        id="marketStatusDot"
+                    ></span>
+
+                    <span id="marketStatus">
+                        Preparando mercado...
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- WATCHLIST -->
+
+    <section class="market-section">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        WATCHLIST
+                    </span>
+
+                    <h2>
+                        Ativos acompanhados
+                    </h2>
+
+                </div>
+
+                <span
+                    class="last-update"
+                    id="lastUpdate"
+                >
+                    —
+                </span>
+
+            </div>
+
+
+            <div
+                class="asset-grid"
+                id="assetGrid"
+            >
+
+                <button
+                    class="asset-card active"
+                    data-symbol="EUR/USD"
+                >
+
+                    <span class="asset-name">
+                        EUR/USD
+                    </span>
+
+                    <strong
+                        class="asset-price"
+                        data-price="EUR/USD"
+                    >
+                        —
+                    </strong>
+
+                    <span
+                        class="asset-change"
+                        data-change="EUR/USD"
+                    >
+                        —
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="asset-card"
+                    data-symbol="GBP/USD"
+                >
+
+                    <span class="asset-name">
+                        GBP/USD
+                    </span>
+
+                    <strong
+                        class="asset-price"
+                        data-price="GBP/USD"
+                    >
+                        —
+                    </strong>
+
+                    <span
+                        class="asset-change"
+                        data-change="GBP/USD"
+                    >
+                        —
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="asset-card"
+                    data-symbol="USD/JPY"
+                >
+
+                    <span class="asset-name">
+                        USD/JPY
+                    </span>
+
+                    <strong
+                        class="asset-price"
+                        data-price="USD/JPY"
+                    >
+                        —
+                    </strong>
+
+                    <span
+                        class="asset-change"
+                        data-change="USD/JPY"
+                    >
+                        —
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="asset-card"
+                    data-symbol="XAU/USD"
+                >
+
+                    <span class="asset-name">
+                        XAU/USD
+                    </span>
+
+                    <strong
+                        class="asset-price"
+                        data-price="XAU/USD"
+                    >
+                        —
+                    </strong>
+
+                    <span
+                        class="asset-change"
+                        data-change="XAU/USD"
+                    >
+                        —
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="asset-card"
+                    data-symbol="BTC/USD"
+                >
+
+                    <span class="asset-name">
+                        BTC/USD
+                    </span>
+
+                    <strong
+                        class="asset-price"
+                        data-price="BTC/USD"
+                    >
+                        —
+                    </strong>
+
+                    <span
+                        class="asset-change"
+                        data-change="BTC/USD"
+                    >
+                        —
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CHART -->
+
+    <section class="market-section chart-section">
+
+        <div class="container">
+
+            <div class="chart-panel">
+
+                <div class="chart-header">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            GRÁFICO
+                        </span>
+
+                        <div class="selected-market">
+
+                            <h2 id="selectedSymbol">
+                                EUR/USD
+                            </h2>
+
+                            <span
+                                id="selectedPrice"
+                                class="selected-price"
+                            >
+                                —
+                            </span>
+
+                            <span
+                                id="selectedChange"
+                                class="selected-change"
+                            >
+                                —
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="timeframes">
+
+                        <button
+                            class="timeframe active"
+                            data-interval="5min"
+                        >
+                            5M
+                        </button>
+
+                        <button
+                            class="timeframe"
+                            data-interval="15min"
+                        >
+                            15M
+                        </button>
+
+                        <button
+                            class="timeframe"
+                            data-interval="1h"
+                        >
+                            1H
+                        </button>
+
+                        <button
+                            class="timeframe"
+                            data-interval="4h"
+                        >
+                            4H
+                        </button>
+
+                        <button
+                            class="timeframe"
+                            data-interval="1day"
+                        >
+                            1D
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="marketChart"
+                    class="market-chart"
+                >
+
+                    <div
+                        class="chart-loading"
+                        id="chartLoading"
+                    >
+                        A carregar dados do mercado...
+                    </div>
+
+                </div>
+
+
+                <div class="chart-footer">
+
+                    <span>
+                        Dados para fins educacionais.
+                    </span>
+
+                    <span id="chartSource">
+                        Fonte: — 
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MARKET INFORMATION -->
+
+    <section class="market-section">
+
+        <div class="container">
+
+            <div class="market-info-grid">
+
+                <article class="info-card">
+
+                    <span class="eyebrow">
+                        ABERTURA
+                    </span>
+
+                    <strong id="openPrice">
+                        —
+                    </strong>
+
+                </article>
+
+
+                <article class="info-card">
+
+                    <span class="eyebrow">
+                        MÁXIMA
+                    </span>
+
+                    <strong id="highPrice">
+                        —
+                    </strong>
+
+                </article>
+
+
+                <article class="info-card">
+
+                    <span class="eyebrow">
+                        MÍNIMA
+                    </span>
+
+                    <strong id="lowPrice">
+                        —
+                    </strong>
+
+                </article>
+
+
+                <article class="info-card">
+
+                    <span class="eyebrow">
+                        FECHO
+                    </span>
+
+                    <strong id="closePrice">
+                        —
+                    </strong>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DISCLAIMER -->
+
+    <section class="market-disclaimer">
+
+        <div class="container">
+
+            <div class="disclaimer-box">
+
+                <strong>
+                    ⚠ Nota educacional
+                </strong>
+
+                <p>
+                    As informações apresentadas nesta página têm
+                    finalidade exclusivamente educativa e informativa.
+                    Não constituem recomendação de investimento,
+                    aconselhamento financeiro ou promessa de resultados.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+    <div class="footer-main">
+            <a class="brand" href="../index.html">
+                <span class="brand-mark" aria-hidden="true">
+                    <img src="logo-footer.png" alt="">
+                </span>
+                <span class="brand-text">
+                    <strong>
+                        TRADERS DE<br>
+                        ELITE
+                    </strong>
+                    <small>
+                        COMUNIDADE
+                    </small>
+                </span>
+            </a>
+        <p>
+           Disciplina. Estratégia. Consistência.
+        </p>
+    </div>
+
+    <div class="container">
+
+        <div class="footer-bottom">
+            <span>© <span id="year"></span> TRADERS DE ELITE. Todos os direitos reservados.</span>
+            <span>Angola</span>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/appwrite@17"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.0.0/dist/lightweight-charts.standalone.production.js"></script>
+
+<script src="../js/appwrite-config.js"></script>
+<script src="../js/main.js"></script>
+
+<script src="js/mercado.js"></script>
+
+</body>
+</html>

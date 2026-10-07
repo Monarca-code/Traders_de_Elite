@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Área do Aluno | TRADERS DE ELITE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/portal.css">
+</head>
+<body class="student-app">
+
+<div class="student-layout">
+
+    <aside class="student-sidebar" id="studentSidebar">
+        <a href="../index.html" class="student-brand">
+            <span class="brand-mark">TE</span>
+            <span><strong>TRADERS DE ELITE</strong><small>ÁREA DO ALUNO</small></span>
+        </a>
+
+        <nav class="student-nav" aria-label="Navegação do aluno">
+            <button class="student-nav-link active" data-section="inicio"><span>⌂</span> Início</button>
+            <button class="student-nav-link" data-section="cursos"><span>▣</span> Meus cursos</button>
+            <button class="student-nav-link" data-section="progresso"><span>◔</span> Meu progresso</button>
+            <button class="student-nav-link" data-section="perfil"><span>◯</span> Meu perfil</button>
+            <button class="student-nav-link" data-section="adicionar"><span>＋</span> Adicionar cursos</button>
+            <button class="student-nav-link" data-section="certificados"><span>◇</span> Certificados</button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../index.html" class="student-home-link">← Site principal</a>
+            <button id="logoutBtn" class="logout sidebar-logout">Sair da conta</button>
+        </div>
+    </aside>
+
+    <div class="student-main-wrap">
+        <header class="student-topbar">
+            <button id="sidebarToggle" class="sidebar-toggle" aria-label="Abrir menu">☰</button>
+
+            <div class="topbar-title">
+                <span>PORTAL DO ESTUDANTE</span>
+                <strong id="topbarStudentName">Estudante</strong>
+            </div>
+
+            <div class="topbar-actions">
+                <div class="notification-wrap">
+                    <button
+                        id="notificationBtn"
+                        class="notification-btn"
+                        type="button"
+                        aria-label="Abrir notificações"
+                        aria-expanded="false"
+                        title="Notificações"
+                    >
+                        <span class="notification-bell">♢</span>
+                        <span id="notificationBadge" class="notification-badge" hidden>0</span>
+                    </button>
+
+                    <div
+                        id="notificationPanel"
+                        class="notification-panel"
+                        hidden
+                    >
+                        <div class="notification-panel-head">
+                            <div>
+                                <span>ATUALIZAÇÕES</span>
+                                <h3>Notificações</h3>
+                            </div>
+
+                            <button
+                                id="markNotificationsRead"
+                                type="button"
+                                class="notification-read"
+                            >
+                                Marcar como lidas
+                            </button>
+                        </div>
+
+                        <div
+                            id="notificationList"
+                            class="notification-list"
+                            aria-live="polite"
+                        >
+                            <div class="notification-empty">
+                                A carregar notificações...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="student-avatar" id="studentAvatar">E</div>
+            </div>
+        </header>
+
+        <main class="student-main">
+
+            <section class="student-section active" data-page="inicio">
+                <div class="student-welcome">
+                    <span>ÁREA DO ALUNO</span>
+                    <h1>Olá, <em id="studentName">Estudante</em> 👋</h1>
+                    <p>Continue a sua formação e acompanhe a sua evolução.</p>
+                </div>
+
+                <section class="stats student-stats">
+                    <article><small>MEUS CURSOS</small><strong id="courseCount">0</strong></article>
+                    <article><small>AULAS CONCLUÍDAS</small><strong id="completedCount">0</strong></article>
+                    <article><small>PROGRESSO GERAL</small><strong id="overallProgress">0%</strong></article>
+                </section>
+
+                <div class="section-title student-section-title"><span>FORMAÇÃO</span><h2>Continue a estudar</h2></div>
+                <div id="featuredCourses" class="course-list">
+                    <div class="loading">A carregar...</div>
+                </div>
+            </section>
+
+            <section class="student-section" data-page="cursos">
+                <div class="student-page-heading"><span>FORMAÇÃO</span><h1>Meus cursos</h1><p>Todos os cursos atribuídos à sua conta.</p></div>
+                <div id="courses" class="course-list"><div class="loading">A carregar...</div></div>
+            </section>
+
+            <section class="student-section" data-page="progresso">
+                <div class="student-page-heading"><span>ACOMPANHAMENTO</span><h1>Meu progresso</h1><p>Veja a evolução da sua formação em cada curso.</p></div>
+                <div id="progressCourses" class="progress-course-list"><div class="loading">A carregar...</div></div>
+            </section>
+
+            <section class="student-section" data-page="perfil">
+                <div class="student-page-heading"><span>CONTA</span><h1>Meu perfil</h1><p>Os dados associados à sua conta de estudante.</p></div>
+                <div class="profile-card profile-edit-card">
+                    <div class="profile-avatar" id="profileAvatar">E</div>
+                    <div class="profile-data">
+                        <div class="profile-field"><small>NOME COMPLETO</small><strong id="profileName">—</strong></div>
+                        <div class="profile-field"><small>E-MAIL</small><strong id="profileEmail">—</strong></div>
+                        <div class="profile-field"><small>TELEFONE</small><strong id="profilePhone">—</strong></div>
+                        <div class="profile-field"><small>TIPO DE CONTA</small><strong id="profileType">Estudante</strong></div>
+                        <div class="profile-field"><small>ESTADO</small><strong id="profileStatus">—</strong></div>
+                        <div class="profile-field"><small>MEMBRO DESDE</small><strong id="profileDate">—</strong></div>
+                    </div>
+                    <button id="editProfileBtn" class="gold-action profile-edit-button">Editar perfil</button>
+                </div>
+
+                <div id="profileEditPanel" class="profile-form-panel" hidden>
+                    <div class="student-form-heading">
+                        <span>ATUALIZAÇÃO</span>
+                        <h2>Editar dados pessoais</h2>
+                        <p>Atualize o seu nome e telefone. O e-mail da conta não pode ser alterado aqui.</p>
+                    </div>
+                    <form id="profileForm" class="student-form">
+                        <div class="student-form-grid">
+                            <label><span>Nome completo</span><input id="editProfileName" type="text" required maxlength="120"></label>
+                            <label><span>Telefone</span><input id="editProfilePhone" type="tel" maxlength="30" placeholder="Ex.: +244 9XX XXX XXX"></label>
+                            <label class="full"><span>E-mail</span><input id="editProfileEmail" type="email" readonly></label>
+                        </div>
+                        <div class="student-form-actions">
+                            <button type="button" id="cancelProfileBtn" class="secondary-action">Cancelar</button>
+                            <button type="submit" id="saveProfileBtn" class="gold-action">Guardar alterações</button>
+                        </div>
+                        <p id="profileMessage" class="profile-message" aria-live="polite"></p>
+                    </form>
+                </div>
+            </section>
+
+            <section class="student-section" data-page="adicionar">
+                <div class="student-page-heading"><span>CATÁLOGO</span><h1>Adicionar cursos</h1><p>Explore as formações disponíveis e adicione-as à sua área de aluno.</p></div>
+                <div id="availableCourses" class="course-list"><div class="loading">A carregar...</div></div>
+            </section>
+
+           <section class="student-section" data-page="certificados">
+
+    <div class="student-page-heading">
+        <span>CERTIFICAÇÃO</span>
+        <h1>Meus certificados</h1>
+        <p>
+            Solicite o seu certificado após concluir uma formação.
+        </p>
+    </div>
+
+    <div id="certificatesContent">
+        <div class="empty-panel">
+            <div class="empty-icon">🏆</div>
+
+            <h3>Solicitar certificado</h3>
+
+            <p>
+                Após concluir um curso, você poderá solicitar
+                o seu certificado à administração.
+            </p>
+
+            <div id="certificateCourses"></div>
+        </div>
+    </div>
+
+</section>
+
+        </main>
+    </div>
+</div>
+
+<div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/appwrite@17"></script>
+<script src="../js/appwrite-config.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
