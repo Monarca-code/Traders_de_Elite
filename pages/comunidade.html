@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="../css/animations.css">
 <link rel="stylesheet" href="../css/institutional.css">
     <link rel="stylesheet" href="../css/mobile-fix.css">
+<link rel="stylesheet" href="../css/galeria.css">
 </head>
 <body>
 <div class="page-grid"></div>
@@ -29,7 +30,7 @@
         <span></span><span></span><span></span>
     </button>
 
-    <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
+    <nav class="main-nav" id="mainNav" aria-label="Navegação principal" >
         <a href="../index.html">INÍCIO</a>
         <a href="sobre.html">SOBRE</a>
         <a href="formacao.html">FORMAÇÃO</a>
@@ -72,6 +73,37 @@
 </div>
 </section>
 
+<section class="section" id="primeiros-encontros">
+    <div class="container">
+        <div class="section-heading reveal">
+            <span class="section-kicker">MEMÓRIA DA COMUNIDADE</span>
+            <h2>Os nossos primeiros <em>encontros.</em></h2>
+            <p>Registos dos primeiros momentos de partilha, aprendizagem e construção da comunidade TRADERS DE ELITE.</p>
+        </div>
+
+        <div class="meetings-gallery">
+            <a href="../img/img1.jpg"><img src="../img/img1.jpg" alt="Primeiro encontro da TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img2.jpg"><img src="../img/img2.jpg" alt="Primeiro encontro da TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img3.jpg"><img src="../img/img3.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img4.jpg"><img src="../img/img4.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img5.jpg"><img src="../img/img5.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img6.jpg"><img src="../img/img6.jpg" alt="Sessão dos primeiros encontros da TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img7.jpg"><img src="../img/img7.jpg" alt="Sessão dos primeiros encontros da TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img8.jpg"><img src="../img/img8.jpg" alt="Sessão dos primeiros encontros da TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img9.jpg"><img src="../img/img9.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img10.jpg"><img src="../img/img10.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img11.jpg"><img src="../img/img11.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img12.jpg"><img src="../img/img12.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img13.jpg"><img src="../img/img13.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img14.jpg"><img src="../img/img14.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img15.jpg"><img src="../img/img15.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img16.jpg"><img src="../img/img16.jpg" alt="Encontro da comunidade TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img17.jpg"><img src="../img/img17.jpg" alt="Primeiro encontro da TRADERS DE ELITE" loading="lazy"></a>
+            <a href="../img/img18.jpg"><img src="../img/img18.jpg" alt="Primeiro encontro da TRADERS DE ELITE" loading="lazy"></a>
+        </div>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
         <div class="action-panel reveal">
@@ -85,6 +117,22 @@
         </div>
     </div>
 </section>
+<!-- LIGHTBOX DA GALERIA -->
+<div class="gallery-lightbox" id="galleryLightbox" aria-hidden="true">
+    <button class="gallery-lightbox-close" id="galleryLightboxClose" type="button" aria-label="Voltar para a galeria">
+        <span>← Voltar</span>
+    </button>
+
+    <button class="gallery-lightbox-nav gallery-lightbox-prev" id="galleryLightboxPrev" type="button" aria-label="Foto anterior">‹</button>
+
+    <figure class="gallery-lightbox-content">
+        <img id="galleryLightboxImage" src="" alt="">
+        <figcaption id="galleryLightboxCaption"></figcaption>
+    </figure>
+
+    <button class="gallery-lightbox-nav gallery-lightbox-next" id="galleryLightboxNext" type="button" aria-label="Próxima foto">›</button>
+</div>
+
 </main>
 
 <footer class="site-footer">
@@ -114,5 +162,6 @@
 </footer>
 
 <script src="../js/main.js"></script>
+<script src="../js/galeria.js"></script>
 </body>
 </html>
