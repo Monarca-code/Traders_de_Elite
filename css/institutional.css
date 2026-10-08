@@ -220,3 +220,108 @@
         padding: 24px;
     }
 }
+/* =====================================================
+   HERO INSTITUCIONAL — CENTRALIZAÇÃO DESKTOP
+===================================================== */
+
+.page-hero .container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.page-hero-content {
+    width: 100%;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.page-hero-content .section-kicker,
+.page-hero-content h1,
+.page-hero-content p {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =====================================================
+   GALERIA DOS PRIMEIROS ENCONTROS
+===================================================== */
+
+.meetings-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.meetings-gallery a {
+    display: block;
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    background: var(--surface-2);
+}
+
+.meetings-gallery img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .45s var(--ease), filter .45s var(--ease);
+}
+
+.meetings-gallery a::after {
+    content: "VER FOTO";
+    position: absolute;
+    inset: auto 12px 12px auto;
+    padding: 6px 9px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    background: rgba(5,5,5,.72);
+    color: var(--gold-light);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity .3s ease, transform .3s ease;
+}
+
+.meetings-gallery a:hover img {
+    transform: scale(1.045);
+    filter: brightness(.78);
+}
+
+.meetings-gallery a:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 1050px) {
+    .meetings-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .page-hero .container {
+        width: 100%;
+    }
+
+    .meetings-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .meetings-gallery a::after {
+        display: none;
+    }
+}
+
+@media (max-width: 420px) {
+    .meetings-gallery {
+        grid-template-columns: 1fr;
+    }
+}
+
