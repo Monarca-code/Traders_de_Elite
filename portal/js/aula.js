@@ -66,7 +66,7 @@ async function getCourseLessons(courseId) {
                         LESSONS_COLLECTION_ID,
                         [
                             Appwrite.Query.equal(
-                                "modulo_id",
+                                "module_id",
                                 module.$id
                             ),
 
@@ -452,70 +452,51 @@ async function start() {
         lesson.video_url
     ) {
 
-        let videoUrl =
-            lesson.video_url.trim();
+        const videoUrl = lesson.video_url.trim();
+let videoId = null;
 
-        // =========================================
-        // YOUTUBE
-        // =========================================
+try {
+    const url = new URL(videoUrl);
+    const host = url.hostname.replace(/^www\./, "");
 
-        if (
-            videoUrl.includes(
-                "youtube.com/watch?v="
-            )
+    if (host === "youtu.be") {
+        videoId = url.pathname.split("/").filter(Boolean)[0];
+    } else if (
+        ["youtube.com", "m.youtube.com", "youtube-nocookie.com"].includes(host)
+    ) {
+        if (url.pathname === "/watch") {
+            videoId = url.searchParams.get("v");
+        } else if (
+            url.pathname.startsWith("/shorts/") ||
+            url.pathname.startsWith("/embed/") ||
+            url.pathname.startsWith("/live/")
         ) {
-
-            const videoId =
-                videoUrl
-                    .split("v=")[1]
-                    .split("&")[0];
-
-            videoUrl =
-                `https://www.youtube.com/embed/${videoId}`;
-
+            videoId = url.pathname.split("/").filter(Boolean)[1];
         }
-
-        // =========================================
-        // YOUTUBE SHORT URL
-        // =========================================
-
-        else if (
-            videoUrl.includes(
-                "youtu.be/"
-            )
-        ) {
-
-            const videoId =
-                videoUrl
-                    .split("youtu.be/")[1]
-                    .split("?")[0];
-
-            videoUrl =
-                `https://www.youtube.com/embed/${videoId}`;
-        }
-
-        video.innerHTML = `
-            <iframe
-                src="${escapeHtml(videoUrl)}"
-                title="${escapeHtml(
-                    lesson.titulo
-                )}"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-            </iframe>
-        `;
-
-    } else if (video) {
-
-        video.innerHTML = `
-            <div
-                class="loading"
-                style="padding:30px"
-            >
-                O vídeo desta aula ainda não foi configurado.
-            </div>
-        `;
     }
+} catch (error) {
+    console.error("Link do vídeo inválido:", error);
+}
+
+if (video && videoId && /^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+    video.innerHTML = `
+        <iframe
+            src="https://www.youtube.com/embed/${videoId}"
+            title="${escapeHtml(lesson.titulo)}"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+        </iframe>
+    `;
+} else if (video) {
+    video.innerHTML = `
+        <div class="loading" style="padding:30px">
+            Não foi possível carregar o vídeo.
+            Verifique o link configurado para esta aula.
+        </div>
+    `;
+}}
 
     // =============================================
     // CONTEÚDO

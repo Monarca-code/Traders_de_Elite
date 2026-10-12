@@ -147,7 +147,7 @@ async function start() {
                     [
 
                         Appwrite.Query.equal(
-                            "modulo_id",
+                            "module_id",
                             module.$id
                         ),
 

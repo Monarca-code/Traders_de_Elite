@@ -251,7 +251,7 @@ async function getCourseLessons(courseId) {
                     DATABASE_ID,
                     LESSONS_COLLECTION_ID,
                     [
-                        Appwrite.Query.equal("modulo_id", module.$id),
+                        Appwrite.Query.equal("module_id", module.$id),
                         Appwrite.Query.equal("publicado", true),
                         Appwrite.Query.limit(100)
                     ]
