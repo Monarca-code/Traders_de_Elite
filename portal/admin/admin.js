@@ -1213,7 +1213,7 @@ async function deleteModule(moduleId) {
             DATABASE_ID,
             LESSONS_COLLECTION_ID,
             [
-                Appwrite.Query.equal("modulo_id", moduleId),
+                Appwrite.Query.equal("module_id", moduleId),
                 Appwrite.Query.limit(100)
             ]
         );
@@ -1268,7 +1268,7 @@ async function loadLessons(moduleId) {
             DATABASE_ID,
             LESSONS_COLLECTION_ID,
             [
-                Appwrite.Query.equal("modulo_id", moduleId),
+                Appwrite.Query.equal("module_id", moduleId),
                 Appwrite.Query.orderAsc("ordem"),
                 Appwrite.Query.limit(100)
             ]
@@ -1371,7 +1371,7 @@ function openLessonModal(lesson = null) {
         lesson?.$id || "";
 
     document.getElementById("lessonModule").value =
-        lesson?.modulo_id || selectedModule || "";
+        lesson?.module_id || selectedModule || "";
 
     document.getElementById("lessonTitle").value =
         lesson?.titulo || "";
@@ -1452,7 +1452,7 @@ async function saveLesson(event) {
     }
 
     const payload = {
-        modulo_id: moduleId,
+        module_id: moduleId,
         titulo,
         descricao,
         conteudo,
@@ -1509,9 +1509,9 @@ async function deleteLesson(lessonId) {
         );
 
         document.getElementById("lessonModuleSelect").value =
-            lesson.modulo_id;
+            lesson.module_id;
 
-        await loadLessons(lesson.modulo_id);
+        await loadLessons(lesson.module_id);
 
         alert("Aula eliminada com sucesso.");
     } catch (error) {
@@ -1825,7 +1825,7 @@ async function loadStudents() {
                                 lessons.filter(
                                     lesson =>
                                         moduleIds.includes(
-                                            lesson.modulo_id
+                                            lesson.module_id
                                         )
                                 );
 
