@@ -391,6 +391,91 @@ async function start() {
     }
 
     // =============================================
+    // BLOQUEIO SEQUENCIAL: 24 HORAS ENTRE AULAS
+    // A primeira aula publicada do curso fica livre.
+    // As seguintes exigem conclusão da aula anterior
+    // e 24 horas desde o completed_at registado.
+    // =============================================
+
+    if (!courseId) {
+        const header = document.getElementById("lessonHeader");
+        if (header) header.innerHTML = '<div class="loading">Abra esta aula através da página do curso para verificar a sequência.</div>';
+        const videoBox = document.getElementById("video");
+        if (videoBox) videoBox.innerHTML = "";
+        const contentBox = document.getElementById("lessonContent");
+        if (contentBox) contentBox.textContent = "";
+        const complete = document.getElementById("completeBtn");
+        if (complete) complete.disabled = true;
+        return;
+    }
+
+    try {
+        const orderedLessons = await getCourseLessons(courseId);
+        const currentIndex = orderedLessons.findIndex(item => item.$id === lessonId);
+
+        if (currentIndex < 0) {
+            throw new Error("Esta aula não pertence ao curso indicado.");
+        }
+
+        if (currentIndex > 0) {
+            const previousLesson = orderedLessons[currentIndex - 1];
+            const previousProgressResult = await databases.listDocuments(
+                DATABASE_ID,
+                PROGRESS_COLLECTION_ID,
+                [
+                    Appwrite.Query.equal("student_id", user.$id),
+                    Appwrite.Query.equal("lesson_id", previousLesson.$id),
+                    Appwrite.Query.limit(1)
+                ]
+            );
+            const previousProgress = previousProgressResult.documents[0];
+
+            if (!previousProgress || previousProgress.completed !== true || !previousProgress.completed_at) {
+                showLessonLock("Conclua a aula anterior para desbloquear esta aula.");
+                return;
+            }
+
+            const completedAt = Date.parse(previousProgress.completed_at);
+            if (!Number.isFinite(completedAt)) {
+                showLessonLock("Não foi possível validar a data de conclusão da aula anterior. Contacte o suporte.");
+                return;
+            }
+
+            const unlockAt = completedAt + 24 * 60 * 60 * 1000;
+            const remaining = unlockAt - Date.now();
+            if (remaining > 0) {
+                const hours = Math.floor(remaining / 3600000);
+                const minutes = Math.floor((remaining % 3600000) / 60000);
+                showLessonLock(`Esta aula será desbloqueada daqui a ${hours} h e ${minutes} min, 24 horas após a conclusão da aula anterior.`);
+                return;
+            }
+        }
+    } catch (error) {
+        console.error("Erro ao validar desbloqueio da aula:", error);
+        showLessonLock("Não foi possível verificar se esta aula está desbloqueada. Atualize a página ou contacte o suporte.");
+        return;
+    }
+
+    function showLessonLock(message) {
+        const header = document.getElementById("lessonHeader");
+        if (header) header.innerHTML = `<div class="loading"><h2>Aula bloqueada</h2><p>${escapeHtml(message)}</p></div>`;
+        const videoBox = document.getElementById("video");
+        if (videoBox) videoBox.innerHTML = "";
+        const contentBox = document.getElementById("lessonContent");
+        if (contentBox) contentBox.textContent = "";
+        const complete = document.getElementById("completeBtn");
+        if (complete) {
+            complete.disabled = true;
+            complete.textContent = "AULA BLOQUEADA";
+        }
+        const next = document.getElementById("nextLesson");
+        if (next) {
+            next.classList.add("disabled");
+            next.href = "javascript:void(0)";
+        }
+    }
+
+    // =============================================
     // VERIFICAR PUBLICAÇÃO
     // =============================================
 
@@ -629,32 +714,24 @@ if (video && videoId && /^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
 
             try {
 
-                const payload = {
+                
+const payload = {
+    student_id: user.$id,
+    course_id: courseId,
+    lesson_id: lessonId,
+    completed: true,
+    progress: 100,
 
-                    student_id:
-                        user.$id,
+    completed_at:
+        existing?.completed_at ||
+        new Date().toISOString()
+};
 
-                    course_id:
-                        courseId,
-
-                    lesson_id:
-                        lessonId,
-
-                    completed:
-                        true,
-
-                    progress:
-                        100
-                };
 
                 console.log(
                     "💾 Salvando progresso:",
                     payload
                 );
-
-                // =================================
-                // ATUALIZAR
-                // =================================
 
                 if (existing) {
 
